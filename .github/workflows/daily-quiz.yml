@@ -1,0 +1,66 @@
+name: Daily Quiz Email
+
+on:
+  schedule:
+    # 3:30 AM UTC = 9:00 AM IST every day
+    - cron: '30 3 * * *'
+  workflow_dispatch:
+    # Manual trigger for testing
+
+jobs:
+  send-quiz:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate today's quiz
+        run: node scripts/generate-quiz.js
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Get quiz date
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Get display date
+        id: displaydate
+        run: echo "DISPLAY=$(date +'%A, %d %B %Y')" >> $GITHUB_OUTPUT
+
+      - name: Send quiz via email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          to: ${{ secrets.RECIPIENT_EMAILS }}
+          from: LabsPitch Training <${{ secrets.GMAIL_USER }}>
+          subject: "🧠 Daily Training Quiz — ${{ steps.displaydate.outputs.DISPLAY }}"
+          body: |
+            Hi team,
+
+            Your daily training quiz for ${{ steps.displaydate.outputs.DISPLAY }} is attached.
+
+            📎 Open the HTML file in any browser (Chrome, Safari, Firefox) — no internet needed.
+            🧠 10 fresh questions · Medium difficulty · Mix of Medical & Sales topics
+            ✅ Submit your answers to see your score and explanations instantly.
+
+            Keep sharpening those skills! 💪
+
+            —
+            LabsPitch Training System
+            Truemeds Diagnostics
+          attachments: quiz-output/quiz-${{ steps.date.outputs.DATE }}.html
+          priority: normal

@@ -1,0 +1,16 @@
+<svg width="260" height="110" viewBox="0 0 260 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pill capsule -->
+  <rect x="2" y="6" width="50" height="82" rx="25" fill="#0071BC"/>
+  <!-- White oval highlight in upper pill -->
+  <ellipse cx="27" cy="30" rx="10" ry="14" fill="white"/>
+  <!-- Green heart outline at bottom-left, overlapping pill edge -->
+  <path d="M22 84 C22 78, 10 72, 10 64 C10 58, 14 55, 18 57.5 C18 55, 19.5 53.5, 22 53.5 C24.5 53.5, 26 55, 26 57.5 C30 55, 34 58, 34 64 C34 72, 22 78, 22 84 Z"
+        fill="none" stroke="#22B573" stroke-width="3.2" stroke-linejoin="round"/>
+
+  <!-- "true" in blue -->
+  <text x="64" y="52" font-family="'Arial Black', Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#0071BC">true</text>
+  <!-- "meds" in green -->
+  <text x="141" y="52" font-family="'Arial Black', Arial, Helvetica, sans-serif" font-size="36" font-weight="900" fill="#22B573">meds</text>
+  <!-- "Labs" in dark charcoal -->
+  <text x="65" y="90" font-family="'Arial Black', Arial, Helvetica, sans-serif" font-size="33" font-weight="800" fill="#3C3C3C">Labs</text>
+</svg>

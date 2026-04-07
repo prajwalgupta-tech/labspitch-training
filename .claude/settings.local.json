@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/prajwal/.nvm/versions/node/**)",
+      "Bash(echo $PATH)",
+      "Bash(/opt/homebrew/bin/node --version)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(/opt/homebrew/bin/npm install:*)",
+      "Bash(PATH=\"/opt/homebrew/bin:$PATH\" npm install @anthropic-ai/sdk --save)",
+      "Bash(printenv ANTHROPIC_API_KEY)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
