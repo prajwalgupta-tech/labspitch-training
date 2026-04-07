@@ -10,10 +10,14 @@ on:
 jobs:
   send-quiz:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit updated agents.json back to the repo
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -24,6 +28,36 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create quiz-output directory
+        run: mkdir -p quiz-output
+
+      # ── Step 1: Sync agents from today's Ozonetel CDR ──────────────────────
+      - name: Sync agent list from Ozonetel CDR
+        run: node scripts/sync-agents.js
+
+      # ── Step 2: Commit agents.json back if new agents were added ───────────
+      - name: Commit updated agent list (if changed)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scripts/agents.json
+          if git diff --staged --quiet; then
+            echo "No new agents — agents.json unchanged."
+          else
+            git commit -m "chore: add new agent(s) from CDR sync [skip ci]"
+            git push
+            echo "Committed updated agents.json."
+          fi
+
+      # ── Step 3: Read recipient emails from agents.json ─────────────────────
+      - name: Read recipient emails
+        id: recipients
+        run: |
+          EMAILS=$(node -e "const a=require('./scripts/agents.json'); process.stdout.write(a.agents.map(x=>x.email).join(', '))")
+          echo "emails=$EMAILS" >> $GITHUB_OUTPUT
+          echo "Recipients: $EMAILS"
+
+      # ── Step 4: Generate today's quiz via Claude ───────────────────────────
       - name: Generate today's quiz
         run: node scripts/generate-quiz.js
         env:
@@ -37,6 +71,7 @@ jobs:
         id: displaydate
         run: echo "DISPLAY=$(date +'%A, %d %B %Y')" >> $GITHUB_OUTPUT
 
+      # ── Step 5: Email quiz to all agents ──────────────────────────────────
       - name: Send quiz via email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -45,7 +80,7 @@ jobs:
           secure: true
           username: ${{ secrets.GMAIL_USER }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          to: ${{ secrets.RECIPIENT_EMAILS }}
+          to: ${{ steps.recipients.outputs.emails }}
           from: LabsPitch Training <${{ secrets.GMAIL_USER }}>
           subject: "🧠 Daily Training Quiz — ${{ steps.displaydate.outputs.DISPLAY }}"
           body: |
