@@ -89,7 +89,7 @@ jobs:
             Your daily training quiz for ${{ steps.displaydate.outputs.DISPLAY }} is attached.
 
             📎 Open the HTML file in any browser (Chrome, Safari, Firefox) — no internet needed.
-            🧠 10 fresh questions · Medium difficulty · Mix of Medical & Sales topics
+            🧠 10 fresh questions · Medical (Easy) + Sales (Medium)
             ✅ Submit your answers to see your score and explanations instantly.
 
             Keep sharpening those skills! 💪

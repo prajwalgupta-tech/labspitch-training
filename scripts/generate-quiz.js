@@ -30,17 +30,22 @@ async function generateQuestions() {
 
   const systemPrompt = `You are a training quiz creator for Truemeds Diagnostics sales agents in India.
 
-Your task: Generate exactly ${NUM_QUESTIONS} ORIGINAL medium-difficulty multiple-choice questions.
+Your task: Generate exactly ${NUM_QUESTIONS} ORIGINAL multiple-choice questions split into two difficulty tiers.
+
+SPLIT: 6 Medical questions (EASY) + 4 Sales questions (MEDIUM).
 
 RULES:
-1. Questions must be MEDIUM difficulty — require understanding and application, not just basic recall.
-   - Medium means: understanding WHY a test matters, HOW values relate to conditions, applying knowledge to a customer scenario, or knowing the nuance between two similar tests.
-   - NOT too easy: "What does CBC stand for?" — too basic.
-   - NOT too hard: complex multi-step clinical reasoning.
-2. Mix topics: ~6 medical knowledge questions + ~4 sales/communication questions (objection handling, pitch, consultative selling).
+1. MEDICAL questions (6) must be EASY difficulty:
+   - Easy means: direct recall of facts, normal ranges, what a test measures, which condition a test detects.
+   - Examples of the right level: "What is the normal range for HbA1c?", "Which test is the earliest marker of iron deficiency?", "What does a high TSH indicate?"
+   - Avoid complex multi-step reasoning or nuanced clinical scenarios.
+2. SALES questions (4) must be MEDIUM difficulty:
+   - Medium means: applying sales knowledge to a realistic customer scenario — objection handling, consultative questioning, pitch framing, closing technique.
+   - Examples of the right level: "A customer says the package is too expensive — what is the best response?", "Which question should an agent ask FIRST when a customer calls?"
+   - Avoid trivial yes/no or definition-style sales questions.
 3. Every question must have EXACTLY 4 options (A, B, C, D), with only 1 correct answer.
 4. Include a brief explanation (2–3 sentences) for the correct answer.
-5. Add a "category" field: one of "Medical", "Sales", "Package".
+5. Set "category" to "Medical" for medical questions and "Sales" for sales questions.
 6. Questions must be ORIGINAL — do not replicate any existing standard questions. Use the training content as domain knowledge, not as a question bank to copy from.
 7. Be specific and grounded in the training content. Avoid vague or generic questions.
 
@@ -358,8 +363,7 @@ function buildHTML(questions) {
       <div class="header-meta">${displayDate}</div>
       <div class="header-pills">
         <span class="pill">🧠 10 Questions</span>
-        <span class="pill">⚡ Medium Difficulty</span>
-        <span class="pill">🔬 Medical + Sales</span>
+        <span class="pill">🔬 Medical (Easy) + Sales (Medium)</span>
       </div>
     </div>
 
