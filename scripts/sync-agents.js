@@ -6,9 +6,12 @@
 // Rate limit: 2 requests/minute → we wait 31s between every API call.
 // Both campaigns are queried and fully paginated.
 
-const https  = require('https');
-const fs     = require('fs');
-const path   = require('path');
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // ─── Ozonetel config ──────────────────────────────────────────────────────────
 const API_KEY       = 'KK87a38089019cdfd79ca0b14d69f71464';

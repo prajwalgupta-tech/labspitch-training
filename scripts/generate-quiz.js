@@ -3,10 +3,13 @@
 // Calls Claude API to generate 10 fresh medium-difficulty quiz questions,
 // then renders them as a fully self-contained interactive HTML file.
 
-const Anthropic = require('@anthropic-ai/sdk');
-const fs = require('fs');
-const path = require('path');
-const { TRAINING_CONTEXT } = require('./training-context.js');
+import Anthropic from '@anthropic-ai/sdk';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { TRAINING_CONTEXT } from './training-context.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 

@@ -53,7 +53,7 @@ jobs:
       - name: Read recipient emails
         id: recipients
         run: |
-          EMAILS=$(node -e "const a=require('./scripts/agents.json'); process.stdout.write(a.agents.map(x=>x.email).join(', '))")
+          EMAILS=$(node -e "import('fs').then(fs=>{ const a=JSON.parse(fs.readFileSync('./scripts/agents.json','utf8')); process.stdout.write(a.agents.map(x=>x.email).join(', ')); })")
           echo "emails=$EMAILS" >> $GITHUB_OUTPUT
           echo "Recipients: $EMAILS"
 
