@@ -1,8 +1,21 @@
 {
   "agents": [
-    { "name": "Pinakin Nayak", "email": "pinakin.nayak@intellihealthsolutions.com" },
-    { "name": "Rohit Singh",   "email": "rohit.singh@intellihealthsolutions.com"   },
-    { "name": "Shiv Dutta",    "email": "shiv.dutta@intellihealthsolutions.com"    }
+    {
+      "name": "Anuradha Gupta",
+      "email": "anuradha.gupta@intellihealthsolutions.com"
+    },
+    {
+      "name": "Pinakin Nayak",
+      "email": "pinakin.nayak@intellihealthsolutions.com"
+    },
+    {
+      "name": "Rohit Singh",
+      "email": "rohit.singh@intellihealthsolutions.com"
+    },
+    {
+      "name": "Shiv Dutta",
+      "email": "shiv.dutta@intellihealthsolutions.com"
+    }
   ],
-  "last_synced": "2026-04-06"
+  "last_synced": "2026-04-08"
 }
