@@ -2,8 +2,8 @@ name: Daily Quiz Email
 
 on:
   schedule:
-    # 3:30 AM UTC = 9:00 AM IST every day
-    - cron: '30 3 * * *'
+    # 11:30 PM UTC = 5:00 AM IST every day
+    - cron: '30 23 * * *'
   workflow_dispatch:
     # Manual trigger for testing
 

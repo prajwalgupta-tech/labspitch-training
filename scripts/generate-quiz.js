@@ -35,10 +35,11 @@ Your task: Generate exactly ${NUM_QUESTIONS} ORIGINAL multiple-choice questions 
 SPLIT: 6 Medical questions (EASY) + 4 Sales questions (MEDIUM).
 
 RULES:
-1. MEDICAL questions (6) must be EASY difficulty:
-   - Easy means: direct recall of facts, normal ranges, what a test measures, which condition a test detects.
-   - Examples of the right level: "What is the normal range for HbA1c?", "Which test is the earliest marker of iron deficiency?", "What does a high TSH indicate?"
+1. MEDICAL questions (6) must be EASY difficulty AND must be based EXCLUSIVELY on the tests and parameters included in the "Preventive Complete Check" package (the 15 test groups listed in Section 1 of the training content). Do NOT ask about any test, marker, or condition that is not covered by a parameter in the package.
+   - Easy means: direct recall of facts, normal ranges, what a test measures, which condition a test detects — for a package parameter.
+   - Examples of the right level: "What is the normal range for HbA1c?", "Which test is the earliest marker of iron deficiency?", "What does a high TSH indicate?", "Which parameter in the CBC indicates average red blood cell size?"
    - Avoid complex multi-step reasoning or nuanced clinical scenarios.
+   - Stick strictly to tests that appear in the package: CBC, LFT, KFT Advanced, Thyroid Profile, Lipid Profile, Iron Studies, Vitamin D, Vitamin B12, HbA1c, Blood Glucose Fasting, CRP, HsCRP, RA Factor, Amylase, Urine R&M Extended.
 2. SALES questions (4) must be MEDIUM difficulty:
    - Medium means: applying sales knowledge to a realistic customer scenario — objection handling, consultative questioning, pitch framing, closing technique.
    - Examples of the right level: "A customer says the package is too expensive — what is the best response?", "Which question should an agent ask FIRST when a customer calls?"
